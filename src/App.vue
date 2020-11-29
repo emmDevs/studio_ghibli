@@ -1,11 +1,14 @@
 <template>
   <div>
+    <h1>Studio Ghibli</h1>
 
-    <film-list :films="films"></film-list>
+    <film-filter-form :films="films" />
 
     <film-info v-if="selectedFilm" :film="selectedFilm" :people="people"></film-info>
 
-    <film-cast :people="people"></film-cast>
+    <film-list :films="films"></film-list>
+
+    <film-cast v-model=getCast :selectedFilmCast="selectedFilmCast"></film-cast>
 
   </div>
 </template>
@@ -15,6 +18,7 @@
 import FilmList from "@/components/FilmList";
 import FilmInfo from "@/components/FilmInfo";
 import FilmCast from "@/components/FilmCast";
+import FilmFilterForm from "@/components/FilmFilterForm";
 import { eventBus } from "@/main.js";
 
 
@@ -24,6 +28,7 @@ export default {
     'film-list': FilmList,
     'film-info': FilmInfo,
     'film-cast': FilmCast,
+    'film-filter-form':FilmFilterForm,
   },
   data(){
     return{
@@ -40,20 +45,35 @@ export default {
       .then(data => this.films = data)
     },
     getPeople: function(){
-      fetch(this.film.people)
+      fetch("https://ghibliapi.herokuapp.com/people")
       .then(results => results.json())
       .then(data => this.people = data)
 
     },
+
+    getCast: function(){
+      for(person in people){
+        for(url in films){
+        if (people.films === this.films.url){
+          selectedFilmCast.push(people[index])
+        }
+        }
+      }
+    }
     
     },
   mounted(){
     this.getFilms();
+    this.getPeople();
 
     eventBus.$on('film-selected', film =>(this.selectedFilm = film));
-    eventBus.$on('show-cast', film =>(this.selectedFilm = film))
+    eventBus.$on('show-cast', film =>(this.film.url = film))
+    eventBus.$on('film-selected', (film) => {
+      this.selectedFilm = film
+    })
   }
 }
+
 </script>
 
 <style>

@@ -1,8 +1,8 @@
 <template>
     <div id="film-info-container">
         <p>{{film.description}}</p>
-        <p>Director:  {{film.director}}</p>
-        <p>Producer:  {{film.producer}}</p>
+        <p><b>Director:</b>  {{film.director}}</p>
+        <p><b>Producer:</b>  {{film.producer}}</p>
         <button v-on:click="showCast">Show Cast</button>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     props: ["film", "people"],
     methods: {
         showCast: function(){
-            eventBus.$emit("show-cast", this.film)
+            eventBus.$emit("show-cast", this.film.url)
         }
     }
 }

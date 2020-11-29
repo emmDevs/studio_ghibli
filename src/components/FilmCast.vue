@@ -1,16 +1,22 @@
 <template>
     <div class="cast-list">
 
-        <film-cast-item v-for="(person, index) in people" :people="people" :key="index"></film-cast-item>
+        <film-cast-item v-for="(person, index) in selectedFilmCast" :selectedFilmCast="selectedFilmCast" :key="index"></film-cast-item>
         
 
     </div>
 </template>
 
 <script>
+import FilmCastItem from "@/components/FilmCastItem";
+
+
 export default {
     name: 'film-cast',
-    props: ["people"],
+    props: ["selectedFilmCast"],
+    components: {
+        'film-cast-item': FilmCastItem
+    },
 }
 </script>
 
