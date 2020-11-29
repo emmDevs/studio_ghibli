@@ -1,6 +1,7 @@
 <template>
     <div class="film-list">
         <film-list-item v-for="(film, index) in films" :film="film" :key="index"> <img v-bind:src="`../assets/${film.title}`"></film-list-item>
+        
     </div>
 
 </template>
